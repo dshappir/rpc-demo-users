@@ -1,0 +1,14 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "noEmit": false,
+        "outDir": "./dist-server",
+        "rootDir": "./src/server",
+        "module": "Node16",
+        "moduleResolution": "node16",
+        "target": "ES2022",
+        "allowImportingTsExtensions": false
+    },
+    "include": ["src/server/**/*"]
+}
+
