@@ -34,7 +34,7 @@ export function AddUserForm({ onUserAdded }: { onUserAdded?: () => void }) {
                         id="name"
                         type="text"
                         value={name}
-                        onChange={(e) => setName(e.target.value.trim())}
+                        onChange={(e) => setName(e.target.value)}
                         disabled={isPending}
                         required
                     />
@@ -45,7 +45,7 @@ export function AddUserForm({ onUserAdded }: { onUserAdded?: () => void }) {
                         id="email"
                         type="email"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value.trim())}
+                        onChange={(e) => setEmail(e.target.value)}
                         disabled={isPending}
                         required
                     />
