@@ -11,38 +11,62 @@ A demonstration project showcasing oRPC with end-to-end type safety for reading 
 
 ## Tech Stack
 
-- **Vite**: Latest stable version for build tooling
-- **Node.js**: v22
-- **React**: v19
-- **oRPC**: v1.10.4
-- **Zod**: v4 for schema validation
-- **TypeScript**: Latest stable with strict mode
-- **Vitest**: For unit testing
-- **ESLint & Prettier**: Code quality tools
+- **Vite**: ^6.0.0 for build tooling
+- **Node.js**: v22 (managed via nvm)
+- **React**: ^19.0.0
+- **oRPC**: ^1.10.4
+- **Zod**: ^4.0.0 for schema validation
+- **TypeScript**: ^5.6.0 with strict mode
+- **Vitest**: ^2.0.0 for unit testing
+- **ESLint**: ^9.0.0 & **Prettier**: ^3.3.0 for code quality
 
 ## Getting Started
 
-1. Install dependencies:
+1. Ensure you're using Node.js v22 (via nvm):
+
+    ```bash
+    nvm use
+    ```
+
+2. Install dependencies:
 
     ```bash
     npm install
     ```
 
-2. Run the development server:
+3. Run the development servers (client and server):
 
     ```bash
     npm run dev
     ```
 
-3. Open your browser to `http://localhost:5173`
+    This starts both:
+    - Client dev server on `http://localhost:5173`
+    - Server API on `http://localhost:3000`
+
+4. Open your browser to `http://localhost:5173`
 
 ## Available Scripts
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
+### Development
+- `npm run dev` - Start both client and server development servers
+- `npm run dev:client` - Start only the client development server (Vite)
+- `npm run dev:server` - Start only the server development server (with watch)
+
+### Building
+- `npm run build` - Build client for production (TypeScript + Vite)
+- `npm run build:server` - Build server for production (TypeScript)
+
+### Running Production Builds
+- `npm run start:server` - Run the built server
+- `npm run preview` - Preview production client build
+- `npm run preview:all` - Preview both client and server production builds
+
+### Code Quality
 - `npm run lint` - Run ESLint
 - `npm run format` - Format code with Prettier
+
+### Testing
 - `npm run test` - Run unit tests
 - `npm run test:ui` - Run tests with UI
 
@@ -53,15 +77,17 @@ src/
   ├── server/          # Server-side code
   │   ├── types.ts     # Zod schemas and TypeScript types
   │   ├── db.ts        # In-memory database simulation
+  │   ├── db.test.ts   # Database unit tests
   │   ├── router.ts    # oRPC router definition
   │   └── index.ts     # Server setup
-  ├── client/          # Client-side code
-  │   └── api.ts       # oRPC client with type safety
-  ├── components/      # React components
-  │   ├── UserList.tsx # User list component
-  │   └── AddUserForm.tsx # Add user form
-  ├── App.tsx          # Main app component
-  └── main.tsx         # Application entry point
+  └── client/          # Client-side code
+      ├── api.ts       # oRPC client with type safety
+      ├── App.tsx      # Main app component
+      ├── main.tsx     # Application entry point
+      ├── index.css    # Global styles
+      └── components/  # React components
+          ├── UserList.tsx    # User list component
+          └── AddUserForm.tsx # Add user form
 ```
 
 ## Type Safety
@@ -69,6 +95,10 @@ src/
 The project demonstrates end-to-end type safety:
 
 - Server types are defined using Zod schemas
-- The `AppRouter` type is exported from the server
-- The client imports and uses `AppRouter` for full type inference
+- The `RouterType` type is exported from the server router
+- The client imports and uses `RouterType` for full type inference
 - No `any` types are used anywhere in the codebase
+
+## License
+
+MIT License - see [LICENSE](LICENSE) file for details.
