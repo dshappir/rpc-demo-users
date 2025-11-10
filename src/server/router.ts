@@ -1,6 +1,6 @@
 import { os } from '@orpc/server';
 import { z } from 'zod';
-import { getAllUsers, addUser } from './db.js';
+import { getAllUsers, addUser, streamUsers } from './db.js';
 import { UserSchema, UserDataSchema } from './types.js';
 
 export const router = {
@@ -10,6 +10,7 @@ export const router = {
             .input(UserDataSchema)
             .output(UserSchema)
             .handler(({ input }) => addUser(input)),
+        stream: os.handler(streamUsers),
     },
 };
 

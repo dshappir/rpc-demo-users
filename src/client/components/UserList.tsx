@@ -1,22 +1,38 @@
-import { use, Suspense } from 'react';
+import { useState, useEffect } from 'react';
 import type { UserType } from '../../server/types.js';
 import { orpc } from '../api.js';
 
-export function UserList({ refreshKey }: { refreshKey: number }) {
-    const allUsersPromise = orpc.users.getAll();
-
+export function UserList() {
     return (
         <div className="user-list-container">
             <h2>Users</h2>
-            <Suspense key={refreshKey} fallback={<div className="loading">Loading users...</div>}>
-                <UserListContent allUsersPromise={allUsersPromise} />
-            </Suspense>
+            <UserListContent />
         </div>
     );
 }
 
-function UserListContent({ allUsersPromise }: { allUsersPromise: Promise<UserType[]> }) {
-    const allUsers = use(allUsersPromise);
+function UserListContent() {
+    const [allUsers, setAllUsers] = useState<UserType[]>([]);
+
+    useEffect(() => {
+        let stop = false;
+
+        async function updateUsers() {
+            const stream = await orpc.users.stream();
+            for await (const users of stream) {
+                if (stop) {
+                    break;
+                }
+                setAllUsers(users);
+            }
+        }
+
+        updateUsers();
+
+        return () => {
+            stop = true;
+        };
+    }, []);
 
     return (
         <ul className="user-list">
