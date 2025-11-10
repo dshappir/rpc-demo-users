@@ -10,7 +10,7 @@ export const router = {
             .input(UserDataSchema)
             .output(UserSchema)
             .handler(({ input }) => addUser(input)),
-        streamUsers: os.handler(streamUsers),
+        stream: os.handler(streamUsers),
     },
 };
 
