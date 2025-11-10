@@ -1,6 +1,6 @@
-import type { User, UserData } from './types.js';
+import type { UserType, UserDataType } from './types.js';
 
-const initialUsers: User[] = [
+const initialUsers: UserType[] = [
     {
         id: '1',
         name: 'Alice Johnson',
@@ -18,16 +18,16 @@ const initialUsers: User[] = [
     },
 ] as const;
 
-let users: User[];
+let users: UserType[];
 let nextId: number;
 reset();
 
-export function getAllUsers(): User[] {
+export function getAllUsers(): UserType[] {
     return [...users];
 }
 
-export function addUser(data: UserData): User {
-    const newUser: User = {
+export function addUser(data: UserDataType): UserType {
+    const newUser: UserType = {
         id: String(nextId++),
         ...data,
     };

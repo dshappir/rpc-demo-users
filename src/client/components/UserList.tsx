@@ -1,5 +1,5 @@
 import { use, Suspense } from 'react';
-import type { User } from '../../server/types.js';
+import type { UserType } from '../../server/types.js';
 import { orpc } from '../api.js';
 
 export function UserList({ refreshKey }: { refreshKey: number }) {
@@ -15,7 +15,7 @@ export function UserList({ refreshKey }: { refreshKey: number }) {
     );
 }
 
-function UserListContent({ allUsersPromise }: { allUsersPromise: Promise<User[]> }) {
+function UserListContent({ allUsersPromise }: { allUsersPromise: Promise<UserType[]> }) {
     const allUsers = use(allUsersPromise);
 
     return (
@@ -27,7 +27,7 @@ function UserListContent({ allUsersPromise }: { allUsersPromise: Promise<User[]>
     );
 }
 
-function UserListItem({ user }: { user: User }) {
+function UserListItem({ user }: { user: UserType }) {
     return (
         <li className="user-item">
             <div className="user-info">
