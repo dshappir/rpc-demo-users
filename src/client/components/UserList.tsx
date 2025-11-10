@@ -18,7 +18,7 @@ function UserListContent() {
         let stop = false;
 
         async function updateUsers() {
-            const stream = await orpc.users.streamUsers();
+            const stream = await orpc.users.stream();
             for await (const users of stream) {
                 if (stop) {
                     break;
