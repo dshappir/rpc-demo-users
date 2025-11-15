@@ -4,7 +4,7 @@ import type { RouterClient } from '@orpc/server';
 import type { RouterType } from '../server/router.js';
 
 const link = new RPCLink({
-    url: 'http://localhost:3000',
+    url: location.origin,
 });
 
 export const orpc: RouterClient<RouterType> = createORPCClient(link);
