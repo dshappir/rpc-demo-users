@@ -16,5 +16,3 @@ const server = createServer(async (req, res) => {
 });
 
 server.listen(3000, () => console.log('Listening on localhost:3000'));
-
-export { server };

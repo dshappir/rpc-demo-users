@@ -20,6 +20,9 @@ const initialUsers: UserType[] = [
 
 let users: UserType[];
 let nextId: number;
+let usersChanged: Promise<void>;
+let signalUsersChanged: () => void;
+
 reset();
 
 export function getAllUsers(): UserType[] {
@@ -32,10 +35,24 @@ export function addUser(data: UserDataType): UserType {
         ...data,
     };
     users.push(newUser);
+
+    signalUsersChanged();
+    ({ promise: usersChanged, resolve: signalUsersChanged } = Promise.withResolvers<void>());
+
     return newUser;
 }
 
 export function reset(): void {
     users = [...initialUsers];
     nextId = users.length + 1;
+
+    signalUsersChanged?.();
+    ({ promise: usersChanged, resolve: signalUsersChanged } = Promise.withResolvers<void>());
+}
+
+export async function* streamUsers() {
+    while (true) {
+        yield [...users];
+        await usersChanged;
+    }
 }
